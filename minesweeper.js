@@ -439,6 +439,20 @@ class Game {
 		this.domElement.classList.remove('input-disabled');
 	}
 
+	showOverlay(message, buttonText) {
+
+		var tryAgainOverlay = document.createElement('div');
+		tryAgainOverlay.setAttribute('class', 'overlay');
+		tryAgainOverlay.innerHTML = '<div>' + message + '<br><button id="retry">' + buttonText + '</button></div>';
+
+		instance.domElement.appendChild(tryAgainOverlay);
+
+		setTimeout(function() {
+			tryAgainOverlay.classList.add('show');
+		}, 50, tryAgainOverlay);
+
+	}
+
 	triggeredMine(triggeredMine) {
 
 		this.disableInput();
@@ -451,17 +465,7 @@ class Game {
 		this.showMine(triggeredMine);
 
 		setTimeout(function() {
-
-			var tryAgainOverlay = document.createElement('div');
-			tryAgainOverlay.setAttribute('class', 'overlay');
-			tryAgainOverlay.innerHTML = '<div>game over<br><button id="retry">Retry?</button></div>';
-
-			instance.domElement.appendChild(tryAgainOverlay);
-
-			setTimeout(function() {
-				tryAgainOverlay.classList.add('show');
-			}, 50, tryAgainOverlay);
-
+			instance.showOverlay('Game over', 'Retry?');
 		}, showMineDelay * this.getTotalMines(), instance);
 
 		Object.keys(this.mines).forEach(function(mine) {
