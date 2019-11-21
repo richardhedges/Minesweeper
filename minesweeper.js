@@ -139,6 +139,27 @@ class Game {
 
 	}
 
+	checkAllSquares() {
+
+		var instance = this;
+		var allPlayed = true;
+
+		Object.keys(this.squares).forEach(function(square) {
+
+			square = instance.squares[square];
+
+			if (square.element.classList.contains('active')) {
+				allPlayed = false;
+			}
+
+		});
+
+		if (allPlayed) {
+			this.endGame();
+		}
+
+	}
+
 	validSquare(squareKey) {
 		return squareKey in this.squares;
 	}
@@ -196,6 +217,7 @@ class Game {
 					var y = event.target.getAttribute('data-y');
 
 					instance.clickedSquare(instance.squares[x + ',' + y]);
+					instance.checkAllSquares();
 
 					return;
 
@@ -215,14 +237,13 @@ class Game {
 
 			if (!instance.inputDisabled) {
 
-				console.log(event.target);
-
 				if (event.target.matches('.square') && !event.target.classList.contains('active')) {
 					
 					var x = event.target.getAttribute('data-x');
 					var y = event.target.getAttribute('data-y');
 
 					instance.toggleFlag(instance.squares[x + ',' + y]);
+					instance.checkAllSquares();
 
 				}
 
@@ -491,6 +512,12 @@ class Game {
 		mine.square.element.style.backgroundColor = this.randomColour();
 		mine.square.element.classList.add('active');
 		mine.square.element.innerHTML = '<span class="mine"></span>';
+
+	}
+
+	endGame() {
+
+		console.log('end game');
 
 	}
 
