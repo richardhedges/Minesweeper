@@ -468,7 +468,7 @@ class Game {
 		tryAgainOverlay.setAttribute('class', 'overlay');
 		tryAgainOverlay.innerHTML = '<div>' + message + '<br><button id="retry">' + buttonText + '</button></div>';
 
-		instance.domElement.appendChild(tryAgainOverlay);
+		this.domElement.appendChild(tryAgainOverlay);
 
 		setTimeout(function() {
 			tryAgainOverlay.classList.add('show');
