@@ -527,9 +527,7 @@ class Game {
 	}
 
 	endGame() {
-
-		console.log('end game');
-
+		this.showOverlay('Good job!', 'Replay?');
 	}
 
 	randomColour() {
