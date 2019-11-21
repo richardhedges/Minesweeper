@@ -236,16 +236,24 @@ class Game {
 
 			if (!instance.inputDisabled) {
 
-				if (event.target.matches('.square')) {
+				if (instance.parentHasClass(event.target, 'square')) {
 
 					event.preventDefault();
 
-					var x = event.target.getAttribute('data-x');
-					var y = event.target.getAttribute('data-y');
+					var square = event.target;
 
-					if (!event.target.classList.contains('active') || event.target.classList.contains('has-flag')) {
+					if (square.classList.contains('flag')) {
+						square = square.parentNode;
+					}
+
+					var x = square.getAttribute('data-x');
+					var y = square.getAttribute('data-y');
+
+					if (!event.target.classList.contains('active') || instance.parentHasClass(event.target, 'has-flag')) {
+
 						instance.toggleFlag(instance.squares[x + ',' + y]);
 						instance.checkAllSquares();
+
 					}
 
 				}
@@ -539,6 +547,16 @@ class Game {
 		];
 
 		return colours[Math.floor(Math.random() * colours.length)];
+
+	}
+
+	parentHasClass(element, classname) {
+
+		if (typeof element.classList != 'undefined' && element.classList.contains(classname)) {
+			return true;
+		}
+
+		return element.parentNode && this.parentHasClass(element.parentNode, classname);
 
 	}
 
