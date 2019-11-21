@@ -207,11 +207,11 @@ class Game {
 
 		document.addEventListener('click', function(event) {
 
-			event.preventDefault();
-
 			if (!instance.inputDisabled) {
 
 				if (event.target.matches('.square') && !event.target.classList.contains('active')) {
+
+					event.preventDefault();
 
 					var x = event.target.getAttribute('data-x');
 					var y = event.target.getAttribute('data-y');
@@ -226,6 +226,7 @@ class Game {
 			}
 
 			if (event.target.matches('#retry')) {
+				event.preventDefault();
 				instance.restart();
 			}
 
@@ -233,11 +234,11 @@ class Game {
 
 		document.addEventListener('contextmenu', function(event) {
 
-			event.preventDefault();
-
 			if (!instance.inputDisabled) {
 
 				if (event.target.matches('.square')) {
+
+					event.preventDefault();
 
 					var x = event.target.getAttribute('data-x');
 					var y = event.target.getAttribute('data-y');
