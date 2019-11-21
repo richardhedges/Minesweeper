@@ -148,7 +148,7 @@ class Game {
 
 			square = instance.squares[square];
 
-			if (square.element.classList.contains('active')) {
+			if (!square.element.classList.contains('active')) {
 				allPlayed = false;
 			}
 
@@ -237,13 +237,15 @@ class Game {
 
 			if (!instance.inputDisabled) {
 
-				if (event.target.matches('.square') && !event.target.classList.contains('active')) {
-					
+				if (event.target.matches('.square')) {
+
 					var x = event.target.getAttribute('data-x');
 					var y = event.target.getAttribute('data-y');
 
-					instance.toggleFlag(instance.squares[x + ',' + y]);
-					instance.checkAllSquares();
+					if (!event.target.classList.contains('active') || event.target.classList.contains('has-flag')) {
+						instance.toggleFlag(instance.squares[x + ',' + y]);
+						instance.checkAllSquares();
+					}
 
 				}
 
